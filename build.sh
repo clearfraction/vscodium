@@ -20,8 +20,7 @@ dnf install createrepo_c curl gcc git python3-dev pip-python3 gnome-keyring libg
        
 
 # fetch the source code
-# git clone https://github.com/VSCodium/vscodium.git && cd vscodium
-git clone -b custom_gallery_patch_fix https://github.com/atesca09/vscodium.git && cd vscodium
+git clone https://github.com/VSCodium/vscodium.git && cd vscodium
 curl -L https://github.com/microsoft/vscode/archive/refs/tags/1.56.0.tar.gz -o /tmp/latest.tar.gz
 tar xfz /tmp/latest.tar.gz -C /tmp/ && mv /tmp/vscode-1.56.0 vscode
 rm -rvf /tmp/latest.tar.gz
@@ -32,7 +31,7 @@ npm i -g yarn
 export SHOULD_BUILD="yes"
 export VSCODE_ARCH=x64
 export OS_NAME=linux
-
+npm config set scripts-prepend-node-path true
 . prepare_vscode.sh
 cd vscode || exit
 sed -i '3s|.el8||' resources/linux/rpm/code.spec.template
