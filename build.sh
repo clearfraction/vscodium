@@ -5,9 +5,7 @@ cd /home
 swupd update --quiet 
 swupd bundle-add curl dnf --quiet 
 shopt -s expand_aliases && alias dnf='dnf -q -y --releasever=latest --disableplugin=changelog'
-dnf config-manager \
-    --add-repo https://cdn.download.clearlinux.org/current/x86_64/os \
-    --add-repo https://gitlab.com/clearfraction/repository/-/raw/repos
+dnf config-manager --add-repo https://cdn.download.clearlinux.org/current/x86_64/os
 dnf groupinstall build srpm-build && dnf install createrepo_c
 dnf groupinstall build srpm-build
 dnf install createrepo_c curl gcc git python3-dev pip-python3 gnome-keyring libgnome-keyring-dev \
