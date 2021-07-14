@@ -32,7 +32,7 @@ npm config set scripts-prepend-node-path true
 . prepare_vscode.sh
 cd vscode || exit
 sed -i '3s|.el8||' resources/linux/rpm/code.spec.template
-sed -i '72s|mime/|mime-|' resources/linux/rpm/code.spec.template
+sed -i '73s|mime/|mime-|' resources/linux/rpm/code.spec.template
 sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
 yarn install
 yarn monaco-compile-check
