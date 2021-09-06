@@ -16,11 +16,10 @@ dnf install createrepo_c curl gcc git python3-dev pip-python3 gnome-keyring libg
        
 
 # fetch the source code
-export LATEST=`curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+export LATEST=`curl -s https://api.github.com/repos/microsoft/vscode/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 git clone https://github.com/VSCodium/vscodium.git && cd vscodium
 curl -L https://github.com/microsoft/vscode/archive/refs/tags/$LATEST.tar.gz -o /tmp/$LATEST.tar.gz
-tar xfz /tmp/$LATEST.tar.gz -C /tmp/ && mv /tmp/vscode-$LATEST vscode
-rm -rvf /tmp/$LATEST.tar.gz.tar.gz
+tar xfz /tmp/$LATEST.tar.gz -C /tmp/ && mv /tmp/vscode-$LATEST vscode && rm -rf /tmp/$LATEST.tar.gz
 
 
 # compilation
@@ -38,6 +37,7 @@ yarn install
 yarn monaco-compile-check
 yarn valid-layers-check
 yarn gulp compile-build
+yarn gulp compile-extension-media
 yarn gulp compile-extensions-build
 yarn gulp minify-vscode
 yarn gulp vscode-linux-x64-min-ci
