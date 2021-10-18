@@ -16,39 +16,22 @@ dnf install createrepo_c curl gcc git python3-dev pip-python3 gnome-keyring libg
        
 
 # fetch the source code
-export LATEST=`curl -s https://api.github.com/repos/microsoft/vscode/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 git clone https://github.com/VSCodium/vscodium.git && cd vscodium
-curl -L https://github.com/microsoft/vscode/archive/refs/tags/$LATEST.tar.gz -o /tmp/$LATEST.tar.gz
-tar xfz /tmp/$LATEST.tar.gz -C /tmp/ && mv /tmp/vscode-$LATEST vscode && rm -rf /tmp/$LATEST.tar.gz
+./get_repo.sh
+sed -i 's|yarn gulp "vscode-linux-${VSCODE_ARCH}-build-deb"|echo "skip the deb package"|' build.sh
+sed -i 's|. ../build/linux/appimage/build.sh|echo "skip the appimage"|' build.sh
 
+pushd vscode
+sed -i '3s|.el7||' resources/linux/rpm/code.spec.template
+sed -i '73s|mime/|mime-|' resources/linux/rpm/code.spec.template
+sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
+popd
 
 # compilation
 npm i -g yarn
 export SHOULD_BUILD="yes"
 export VSCODE_ARCH=x64
 export OS_NAME=linux
-npm config set scripts-prepend-node-path true
-. prepare_vscode.sh
-cd vscode || exit
-sed -i '3s|.el8||' resources/linux/rpm/code.spec.template
-sed -i '73s|mime/|mime-|' resources/linux/rpm/code.spec.template
-sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
-yarn install
-yarn monaco-compile-check
-yarn valid-layers-check
-yarn gulp compile-build
-yarn gulp compile-extension-media
-yarn gulp compile-extensions-build
-yarn gulp minify-vscode
-yarn gulp vscode-linux-x64-min-ci
-yarn gulp vscode-linux-x64-build-rpm
-
-
-# deployment
-count=`ls -1 $PWD/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm 2>/dev/null | wc -l`
-if [ $count != 0 ]
-then
-echo "Start deployment..."
-mkdir RPMS
-mv $PWD/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm RPMS/
-fi 
+./build.sh
+mkdir /home/RPMS
+mv /home/vscodium/vscode/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm /home/RPMS

@@ -1,21 +1,18 @@
 name: build
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
-
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: build package
+      - name: Building a package
         run: |
           chmod +x build.sh
           docker run --privileged --cap-add=SYS_ADMIN --security-opt apparmor:unconfined -e GITLAB_API_KEY="$GITLAB_API_KEY" -v $(pwd):/home clearlinux:latest sh -c "cd /home && ./build.sh"
-          - name: Upload result
-      - uses: actions/upload-artifact@v2
+      - name: Upload result
+        uses: actions/upload-artifact@v2
         with:
           path: RPMS/*.rpm
