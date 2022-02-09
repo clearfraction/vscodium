@@ -8,7 +8,7 @@ shopt -s expand_aliases && alias dnf='dnf -q -y --releasever=latest --disableplu
 dnf config-manager --add-repo https://cdn.download.clearlinux.org/current/x86_64/os
 dnf groupinstall build srpm-build && dnf install createrepo_c
 dnf groupinstall build srpm-build
-dnf install createrepo_c curl gcc git python3-dev pip-python3 gnome-keyring libgnome-keyring-dev \
+dnf install createrepo_c curl gcc git python3-dev pypi-pip gnome-keyring libgnome-keyring-dev \
        iputils jq at-spi2-atk-dev compat-fuse-soname2-dev fuse-dev GConf-lib gdk-pixbuf-lib mesa-dev \
        gtk3-dev libnotify-dev libsecret-dev openssl-dev libX11-dev openssl-dev wayland-dev  \
        wayland-protocols-dev libxkbfile-dev lsof polkit dbus-python sudo wget xvfb-run tzdata \
