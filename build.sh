@@ -32,6 +32,15 @@ npm i -g yarn
 export SHOULD_BUILD="yes"
 export VSCODE_ARCH=x64
 export OS_NAME=linux
+export LANG=C.UTF-8
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
 ./build.sh
 mkdir /home/RPMS
 mv /home/vscodium/vscode/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm /home/RPMS
