@@ -23,7 +23,7 @@ sed -i 's|. ../build/linux/appimage/build.sh|echo "skip the appimage"|' build.sh
 
 pushd vscode
 sed -i '3s|.el7||' resources/linux/rpm/code.spec.template
-sed -i '73s|mime/|mime-|' resources/linux/rpm/code.spec.template
+sed -i '71s|mime/|mime-|' resources/linux/rpm/code.spec.template
 sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
 popd
 
@@ -37,10 +37,10 @@ export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256"
 ./build.sh
 mkdir /home/RPMS
 mv /home/vscodium/vscode/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm /home/RPMS
