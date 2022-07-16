@@ -22,8 +22,7 @@ sed -i 's|yarn gulp "vscode-linux-${VSCODE_ARCH}-build-deb"|echo "skip the deb p
 sed -i 's|. ../build/linux/appimage/build.sh|echo "skip the appimage"|' build.sh
 
 pushd vscode
-sed -i '3s|.el7||' resources/linux/rpm/code.spec.template
-sed -i '71s|mime/|mime-|' resources/linux/rpm/code.spec.template
+sed -i '75s|mime/|mime-|' resources/linux/rpm/code.spec.template
 sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
 popd
 
