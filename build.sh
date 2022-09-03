@@ -21,8 +21,8 @@ swupd update --quiet -W 50
 swupd bundle-add curl dnf --quiet -W 50
 shopt -s expand_aliases && alias dnf='dnf -q -y --releasever=latest --disableplugin=changelog,needs_restarting'
 dnf config-manager --add-repo https://cdn.download.clearlinux.org/current/x86_64/os
-dnf groupinstall build srpm-build && dnf install createrepo_c
 dnf groupinstall build srpm-build
+echo 'exit 0' > /usr/lib/rpm/clr/brp-create-abi
 dnf install createrepo_c curl gcc git python3-dev pypi-pip gnome-keyring \
     libgnome-keyring-dev wayland-dev  \
     iputils jq at-spi2-atk-dev compat-fuse-soname2-dev fuse-dev GConf-lib \
