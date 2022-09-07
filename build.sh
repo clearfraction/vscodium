@@ -2,6 +2,7 @@
 export SHOULD_BUILD=yes
 export VSCODE_ARCH=x64
 export OS_NAME=linux
+export CI_BUILD=no
 export SHOULD_BUILD_DEB=no
 export SHOULD_BUILD_APPIMAGE=no
 export SHOULD_BUILD_TAR=no
@@ -13,7 +14,7 @@ export NM=gcc-nm
 export CFLAGS="$CFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
 export FCFLAGS="$FFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
 export FFLAGS="$FFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256"
+export CXXFLAGS="$CXXFLAGS -Ofast -falign-functions=32 -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
 
 # setup build environment
 cd /home
@@ -31,16 +32,18 @@ dnf install createrepo_c curl gcc git python3-dev pypi-pip gnome-keyring \
     wayland-protocols-dev libxkbfile-dev lsof polkit dbus-python sudo wget \
     fakeroot gperf cups-dev cairo-dev libpciaccess-dev libevdev-dev \
     libffi-dev ruby nodejs alsa-lib-dev
+npm i -g yarn
+export RELEASE_VERSION=`curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+
 
 git clone https://github.com/VSCodium/vscodium.git && cd vscodium
-./get_repo.sh
-npm i -g yarn
-./build.sh
+. get_repo.sh
+. build.sh
 pushd vscode
 sed -i '65,105s|mime/|mime-|'  resources/linux/rpm/code.spec.template
 sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
-sed -i 's|@@VERSION@@|latest|' resources/linux/rpm/code.spec.template
+# sed -i 's|@@VERSION@@|latest|' resources/linux/rpm/code.spec.template
 popd
-./prepare_artifacts.sh
+. prepare_artifacts.sh
 mkdir /home/RPMS
 mv /home/vscodium/vscode/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm /home/RPMS
