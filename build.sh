@@ -28,7 +28,7 @@ dnf install createrepo_c curl gcc git python3-dev pypi-pip gnome-keyring \
     libgnome-keyring-dev wayland-dev  \
     iputils jq at-spi2-atk-dev compat-fuse-soname2-dev fuse-dev GConf-lib \
     gdk-pixbuf-lib mesa-dev xvfb-run tzdata \
-    gtk3-dev libnotify-dev libsecret-dev openssl-dev libX11-dev openssl-dev \
+    gtk3-dev libnotify-dev libsecret-dev compat-openssl-soname11-dev libX11-dev openssl-dev \
     wayland-protocols-dev libxkbfile-dev lsof polkit dbus-python sudo wget \
     fakeroot gperf cups-dev cairo-dev libpciaccess-dev libevdev-dev \
     libffi-dev ruby nodejs alsa-lib-dev
