@@ -44,7 +44,7 @@ pushd vscode
 sed -i '65,105s|mime/|mime-|'  resources/linux/rpm/code.spec.template
 sed -i '1s|^|%global abi_package %{nil}\n|' resources/linux/rpm/code.spec.template
 # sed -i 's|@@VERSION@@|latest|' resources/linux/rpm/code.spec.template
+yarn gulp "vscode-linux-${VSCODE_ARCH}-build-rpm"
 popd
-. prepare_artifacts.sh
 mkdir /home/RPMS
 mv /home/vscodium/vscode/.build/linux/rpm/x86_64/rpmbuild/RPMS/x86_64/*.rpm /home/RPMS
