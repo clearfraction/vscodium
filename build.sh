@@ -34,8 +34,12 @@ dnf install createrepo_c curl gcc git python3-dev pypi-pip gnome-keyring \
     gtk3-dev libnotify-dev libsecret-dev libX11-dev openssl-dev \
     wayland-protocols-dev libxkbfile-dev lsof polkit dbus-python sudo wget \
     fakeroot gperf cups-dev cairo-dev libpciaccess-dev libevdev-dev \
-    libffi-dev ruby alsa-lib-dev nodejs
- 
+    libffi-dev ruby alsa-lib-dev
+    
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm install 16
 npm i -g yarn
 export RELEASE_VERSION=`curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 
