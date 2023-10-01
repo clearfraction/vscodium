@@ -34,9 +34,8 @@ dnf install createrepo_c curl gcc git python3-dev pypi-pip gnome-keyring \
     gtk3-dev libnotify-dev libsecret-dev libX11-dev openssl-dev \
     wayland-protocols-dev libxkbfile-dev lsof polkit dbus-python sudo wget \
     fakeroot gperf cups-dev cairo-dev libpciaccess-dev libevdev-dev \
-    libffi-dev ruby alsa-lib-dev
+    libffi-dev ruby alsa-lib-dev nodejs
  
-dnf install https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-bin-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-data-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-dev-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-filemap-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-license-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-man-16.19.0-139.x86_64.rpm https://download.clearlinux.org/releases/38020/clear/x86_64/os/Packages/nodejs-man-16.19.0-139.x86_64.rpm
 npm i -g yarn
 export RELEASE_VERSION=`curl -s https://api.github.com/repos/VSCodium/vscodium/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 
